@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+data/
+libraries/
+logs/
+versions/
+bedrock_fact_pipeline/data/
+node_modules/
+minecraft.db
+data-tool/
+tool_oracle_cuda/adapter-tool-*-cuda/
+tool_oracle_cuda/*.log
+tool_oracle_cuda/train_*.jsonl
+tool_oracle_cuda/valid_*.jsonl
+tool_oracle_cuda/held_out_*.json

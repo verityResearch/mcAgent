@@ -1,0 +1,22 @@
+torch>=2.13.0
+transformers>=5.15.0
+peft>=0.20.0
+accelerate>=1.14.0
+deepspeed>=0.19.0
+ninja
+datasets
+
+# System packages also required (not installable via pip):
+#   python3.14-dev (or the matching python3.X-dev for your interpreter) --
+#     DeepSpeed JIT-compiles its CPU Adam kernel against Python.h at first
+#     run; without the dev headers this fails with "Python.h: No such file
+#     or directory" partway through training, not at import time.
+#
+# Run with the deepspeed launcher, not plain python, so ZeRO-3 CPU offload
+# actually shards the model (see deepspeed_zero3_offload.json):
+#   DS_SKIP_CUDA_CHECK=1 deepspeed --num_gpus=1 finetune_mellum2.py \
+#       --dataset path/to/dataset.jsonl --output-dir out/
+# DS_SKIP_CUDA_CHECK is only needed if the system CUDA toolkit's minor
+# version doesn't exactly match the one torch was built against (observed:
+# system 13.3 vs torch's 13.0) -- DeepSpeed's version check is stricter than
+# the actual API compatibility here.

@@ -1,0 +1,28 @@
+// Robustness + hallucination-guard probe for the tool-augmented model.
+// KNOWN items: deliberately out-of-template natural phrasings on real subjects
+//   -> tests whether the query SKILL survives phrasing it never trained on.
+// UNKNOWN items: subjects with no DB row (fake items/mobs/enchants)
+//   -> the model should query, get no rows, and DECLINE rather than fabricate.
+// Ground truth for known items is derived from the live DB at eval time.
+{"question": "I'm lighting up my mineshaft and need a torch. What do I put together to make one?", "table": "recipe", "key": "minecraft:torch", "kind": "known"}
+{"question": "Walk me through building a piston from raw materials.", "table": "recipe", "key": "minecraft:piston", "kind": "known"}
+{"question": "What two things go into a pair of shears?", "table": "recipe", "key": "minecraft:shears", "kind": "known"}
+{"question": "Skeletons keep killing me. What do I need to craft a shield for defense?", "table": "recipe", "key": "minecraft:shield", "kind": "known"}
+{"question": "andesite - remind me of the crafting combo again?", "table": "recipe", "key": "minecraft:andesite", "kind": "known"}
+{"question": "I want to smelt ore faster. How is a blast furnace put together?", "table": "recipe", "key": "minecraft:blast_furnace", "kind": "known"}
+{"question": "How high can Sharpness actually go?", "table": "enchantment", "key": "minecraft:sharpness", "kind": "known"}
+{"question": "What's the ceiling on the Efficiency enchant?", "table": "enchantment", "key": "minecraft:efficiency", "kind": "known"}
+{"question": "Max level for Unbreaking, do you know?", "table": "enchantment", "key": "minecraft:unbreaking", "kind": "known"}
+{"question": "Is there a level cap on Mending?", "table": "enchantment", "key": "minecraft:mending", "kind": "known"}
+{"question": "My fox looks hungry - what should I feed it?", "table": "breeding_food", "key": "fox", "kind": "known"}
+{"question": "What foods will a pig eat?", "table": "breeding_food", "key": "pig", "kind": "known"}
+{"question": "What do my cows eat?", "table": "breeding_food", "key": "cow", "kind": "known"}
+{"question": "What do you feed a wolf?", "table": "breeding_food", "key": "wolf", "kind": "known"}
+{"question": "If I kill a creeper, what's going to drop out of it?", "table": "loot", "key": "minecraft:entities/creeper", "kind": "known"}
+{"question": "Loot-wise, what comes off a zombie when it dies?", "table": "loot", "key": "minecraft:entities/zombie", "kind": "known"}
+{"question": "When I mine an anvil, what do I get back?", "table": "loot", "key": "minecraft:blocks/anvil", "kind": "known"}
+{"question": "How do you craft a dragon sword?", "table": "recipe", "key": "minecraft:dragon_sword", "kind": "unknown"}
+{"question": "What's the recipe for a lightsaber?", "table": "recipe", "key": "minecraft:lightsaber", "kind": "unknown"}
+{"question": "What does a phoenix eat in Minecraft?", "table": "breeding_food", "key": "phoenix", "kind": "unknown"}
+{"question": "What's the maximum level of the Excalibur enchantment?", "table": "enchantment", "key": "minecraft:excalibur", "kind": "unknown"}
+{"question": "What does a chaos wraith drop when you kill it?", "table": "loot", "key": "minecraft:entities/chaos_wraith", "kind": "unknown"}

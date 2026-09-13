@@ -1,0 +1,13 @@
+// Multi-hop probe: craft X, and also make its craftable ingredient Y. Tests
+// whether the model CHAINS two lookups (X's recipe -> read that it needs Y ->
+// Y's recipe) rather than answering in one shot. Ground truth = union of both
+// hops' ingredients, derived from the live DB. All chains verified real.
+{"question": "How do I craft a sticky piston, and how do I make the piston it needs?", "table": "recipe", "key": "minecraft:sticky_piston", "second_key": "minecraft:piston", "kind": "multihop"}
+{"question": "What goes into an activator rail, and how do I craft its redstone torch?", "table": "recipe", "key": "minecraft:activator_rail", "second_key": "minecraft:redstone_torch", "kind": "multihop"}
+{"question": "I want to build a bookshelf - what's in it, and how do I make the book?", "table": "recipe", "key": "minecraft:bookshelf", "second_key": "minecraft:book", "kind": "multihop"}
+{"question": "How do I make a crossbow, including crafting the stick it uses?", "table": "recipe", "key": "minecraft:crossbow", "second_key": "minecraft:stick", "kind": "multihop"}
+{"question": "How do I craft an acacia boat, and how do I make its acacia planks?", "table": "recipe", "key": "minecraft:acacia_boat", "second_key": "minecraft:acacia_planks", "kind": "multihop"}
+{"question": "What do I need for a chest boat, and how is the boat part crafted?", "table": "recipe", "key": "minecraft:acacia_chest_boat", "second_key": "minecraft:acacia_boat", "kind": "multihop"}
+{"question": "What does a horse eat, and how do I craft the golden apple it accepts?", "table": "breeding_food", "key": "horse", "second_table": "recipe", "second_key": "minecraft:golden_apple", "kind": "multihop"}
+{"question": "What do rabbits eat, and how is the golden carrot made?", "table": "breeding_food", "key": "rabbit", "second_table": "recipe", "second_key": "minecraft:golden_carrot", "kind": "multihop"}
+{"question": "What do cows eat, and how do I craft the wheat... I mean grow it?", "table": "breeding_food", "key": "cow", "second_table": "recipe", "second_key": "minecraft:wheat", "kind": "multihop"}

@@ -1,0 +1,136 @@
+[
+  {
+    "lane": "fact_seeded",
+    "category": "tag",
+    "subject_id": "minecraft:block/supports_chorus_plant",
+    "fields": {
+      "members": [
+        "minecraft:end_stone"
+      ]
+    },
+    "question": "Is minecraft:end_stone a member of the tag minecraft:block/supports_chorus_plant?"
+  },
+  {
+    "lane": "fact_seeded",
+    "category": "loot_table",
+    "subject_id": "minecraft:blocks/acacia_sign",
+    "fields": {
+      "drops": [
+        "minecraft:acacia_sign"
+      ]
+    },
+    "question": "What can minecraft:blocks/acacia_sign drop?"
+  },
+  {
+    "lane": "fact_seeded",
+    "category": "recipe",
+    "subject_id": "minecraft:dye_lime_bed",
+    "fields": {
+      "recipe_type": "crafting_shapeless",
+      "result_item": "minecraft:lime_bed",
+      "result_count": 1,
+      "ingredients": [
+        "minecraft:black_bed",
+        "minecraft:blue_bed",
+        "minecraft:brown_bed",
+        "minecraft:cyan_bed",
+        "minecraft:gray_bed",
+        "minecraft:green_bed",
+        "minecraft:light_blue_bed",
+        "minecraft:light_gray_bed",
+        "minecraft:lime_dye",
+        "minecraft:magenta_bed",
+        "minecraft:orange_bed",
+        "minecraft:pink_bed",
+        "minecraft:purple_bed",
+        "minecraft:red_bed",
+        "minecraft:white_bed",
+        "minecraft:yellow_bed"
+      ]
+    },
+    "question": "What items do you need to craft minecraft:dye_lime_bed?"
+  },
+  {
+    "lane": "fact_seeded",
+    "category": "tag",
+    "subject_id": "minecraft:enchantment/exclusive_set/damage",
+    "fields": {
+      "members": [
+        "minecraft:sharpness",
+        "minecraft:smite",
+        "minecraft:bane_of_arthropods",
+        "minecraft:impaling",
+        "minecraft:density",
+        "minecraft:breach"
+      ]
+    },
+    "question": "Is minecraft:sharpness a member of the tag minecraft:enchantment/exclusive_set/damage?"
+  },
+  {
+    "lane": "fact_seeded",
+    "category": "tag",
+    "subject_id": "minecraft:item/cluster_max_harvestables",
+    "fields": {
+      "members": [
+        "minecraft:diamond_pickaxe",
+        "minecraft:golden_pickaxe",
+        "minecraft:iron_pickaxe",
+        "minecraft:netherite_pickaxe",
+        "minecraft:stone_pickaxe",
+        "minecraft:wooden_pickaxe",
+        "minecraft:copper_pickaxe"
+      ]
+    },
+    "question": "Is minecraft:diamond_pickaxe a member of the tag minecraft:item/cluster_max_harvestables?"
+  },
+  {
+    "lane": "fact_seeded",
+    "category": "loot_table",
+    "subject_id": "minecraft:blocks/carrots",
+    "fields": {
+      "drops": [
+        "minecraft:carrot"
+      ]
+    },
+    "question": "What can minecraft:blocks/carrots drop?"
+  },
+  {
+    "lane": "fact_seeded",
+    "category": "loot_table",
+    "subject_id": "minecraft:blocks/diorite_stairs",
+    "fields": {
+      "drops": [
+        "minecraft:diorite_stairs"
+      ]
+    },
+    "question": "What can minecraft:blocks/diorite_stairs drop?"
+  },
+  {
+    "lane": "fact_seeded",
+    "category": "loot_table",
+    "subject_id": "minecraft:blocks/potted_white_tulip",
+    "fields": {
+      "drops": [
+        "minecraft:flower_pot",
+        "minecraft:white_tulip"
+      ]
+    },
+    "question": "What can minecraft:blocks/potted_white_tulip drop?"
+  },
+  {
+    "lane": "free_recall",
+    "topic": "Copper mechanics: oxidation and lightning rods"
+  },
+  {
+    "lane": "free_recall",
+    "topic": "Nether survival: navigating without dying to lava"
+  },
+  {
+    "lane": "free_recall",
+    "topic": "Managing hunger and food efficiently in the mid-game"
+  },
+  {
+    "lane": "free_recall",
+    "topic": "Finding and using ancient debris for netherite"
+  }
+]

@@ -1,0 +1,10 @@
+-r requirements.txt
+
+torch==2.13.0
+transformers==5.15.0
+peft==0.20.0
+accelerate==1.14.0
+datasets==5.0.1
+trl==1.12.0
+fastapi==0.141.1
+uvicorn==0.52.4

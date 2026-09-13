@@ -1,0 +1,48 @@
+// Comprehensive robustness + hallucination probe: the original 22 items plus
+// coverage of the categories the small probe missed (entity loot, villager
+// trade, jukebox, painting, tag) with natural phrasing, and more unknown types.
+// All known keys verified against the live DB. See robustness_probe.jsonl for
+// the 22-item baseline used for round-2/round-3 comparison.
+{"question": "I'm lighting up my mineshaft and need a torch. What do I put together to make one?", "table": "recipe", "key": "minecraft:torch", "kind": "known"}
+{"question": "Walk me through building a piston from raw materials.", "table": "recipe", "key": "minecraft:piston", "kind": "known"}
+{"question": "What two things go into a pair of shears?", "table": "recipe", "key": "minecraft:shears", "kind": "known"}
+{"question": "Skeletons keep killing me. What do I need to craft a shield for defense?", "table": "recipe", "key": "minecraft:shield", "kind": "known"}
+{"question": "andesite - remind me of the crafting combo again?", "table": "recipe", "key": "minecraft:andesite", "kind": "known"}
+{"question": "I want to smelt ore faster. How is a blast furnace put together?", "table": "recipe", "key": "minecraft:blast_furnace", "kind": "known"}
+{"question": "How high can Sharpness actually go?", "table": "enchantment", "key": "minecraft:sharpness", "kind": "known"}
+{"question": "What's the ceiling on the Efficiency enchant?", "table": "enchantment", "key": "minecraft:efficiency", "kind": "known"}
+{"question": "Max level for Unbreaking, do you know?", "table": "enchantment", "key": "minecraft:unbreaking", "kind": "known"}
+{"question": "Is there a level cap on Mending?", "table": "enchantment", "key": "minecraft:mending", "kind": "known"}
+{"question": "My fox looks hungry - what should I feed it?", "table": "breeding_food", "key": "fox", "kind": "known"}
+{"question": "What foods will a pig eat?", "table": "breeding_food", "key": "pig", "kind": "known"}
+{"question": "What do my cows eat?", "table": "breeding_food", "key": "cow", "kind": "known"}
+{"question": "What do you feed a wolf?", "table": "breeding_food", "key": "wolf", "kind": "known"}
+{"question": "If I kill a creeper, what's going to drop out of it?", "table": "loot", "key": "minecraft:entities/creeper", "kind": "known"}
+{"question": "Loot-wise, what comes off a zombie when it dies?", "table": "loot", "key": "minecraft:entities/zombie", "kind": "known"}
+{"question": "When I mine an anvil, what do I get back?", "table": "loot", "key": "minecraft:blocks/anvil", "kind": "known"}
+{"question": "How do you craft a dragon sword?", "table": "recipe", "key": "minecraft:dragon_sword", "kind": "unknown"}
+{"question": "What's the recipe for a lightsaber?", "table": "recipe", "key": "minecraft:lightsaber", "kind": "unknown"}
+{"question": "What does a phoenix eat in Minecraft?", "table": "breeding_food", "key": "phoenix", "kind": "unknown"}
+{"question": "What's the maximum level of the Excalibur enchantment?", "table": "enchantment", "key": "minecraft:excalibur", "kind": "unknown"}
+{"question": "What does a chaos wraith drop when you kill it?", "table": "loot", "key": "minecraft:entities/chaos_wraith", "kind": "unknown"}
+{"question": "If I kill a skeleton, what does it drop?", "table": "loot", "key": "minecraft:entities/skeleton", "kind": "known"}
+{"question": "What does a spider drop when you kill it?", "table": "loot", "key": "minecraft:entities/spider", "kind": "known"}
+{"question": "What loot does an enderman leave behind?", "table": "loot", "key": "minecraft:entities/enderman", "kind": "known"}
+{"question": "How long does the Pigstep music disc play for?", "table": "jukebox_song", "key": "minecraft:pigstep", "kind": "known"}
+{"question": "How many seconds is the Tears music disc?", "table": "jukebox_song", "key": "minecraft:tears", "kind": "known"}
+{"question": "How big is the Stage painting in blocks?", "table": "painting", "key": "minecraft:stage", "kind": "known"}
+{"question": "What are the dimensions of the Prairie Ride painting?", "table": "painting", "key": "minecraft:prairie_ride", "kind": "known"}
+{"question": "What items are in the arrows tag?", "table": "tag", "key": "minecraft:arrows", "kind": "known"}
+{"question": "What belongs to the acacia logs tag?", "table": "tag", "key": "minecraft:acacia_logs", "kind": "known"}
+{"question": "How long does the Dragon Anthem music disc play?", "table": "jukebox_song", "key": "minecraft:dragon_anthem", "kind": "unknown"}
+{"question": "How big is the Void Portal painting?", "table": "painting", "key": "minecraft:void_portal", "kind": "unknown"}
+{"question": "What's the maximum level of the Sharpshooter enchantment?", "table": "enchantment", "key": "minecraft:sharpshooter", "kind": "unknown"}
+{"question": "What items are in the mythical ores tag?", "table": "tag", "key": "minecraft:mythical_ores", "kind": "unknown"}
+{"question": "How many kinds of beds are there, and can you name a few?", "table": "tag", "key": "minecraft:beds", "kind": "known"}
+{"question": "Roughly how many fence types are there in Minecraft? Give some examples.", "table": "tag", "key": "minecraft:fences", "kind": "known"}
+{"question": "What is a carrot on a stick used for?", "table": "item_use", "key": "minecraft:carrot_on_a_stick", "kind": "known"}
+{"question": "What do you use a bucket for?", "table": null, "key": null, "kind": "usage"}
+{"question": "What's the purpose of a bow?", "table": "item_use", "key": "minecraft:bow", "kind": "known"}
+{"question": "How much extra damage does a diamond sword do in combat?", "table": "item_use", "key": "minecraft:diamond_sword", "kind": "known"}
+{"question": "What slot do I wear a diamond helmet in?", "table": "item_use", "key": "minecraft:diamond_helmet", "kind": "known"}
+{"question": "How much hunger does eating cooked beef restore?", "table": "item_use", "key": "minecraft:cooked_beef", "kind": "known"}

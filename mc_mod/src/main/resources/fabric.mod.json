@@ -1,0 +1,37 @@
+{
+	"schemaVersion": 1,
+	"id": "mcagent",
+	"version": "${version}",
+	"name": "mcAgent",
+	"description": "A tool-augmented in-game assistant backed by an offline game-data oracle. Ships the generator, not the data -- the oracle rebuilds itself from your own installed game's live registries on first run.",
+	"authors": [
+		"Tony Houston"
+	],
+	"contact": {
+		"sources": "https://github.com/verityResearch/mcAgent"
+	},
+	"license": "Apache-2.0",
+	"icon": "assets/mcagent/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.cmodels.mcagent.McAgentMod"
+		],
+		"client": [
+			"com.cmodels.mcagent.client.McAgentModClient"
+		]
+	},
+	"mixins": [
+		"mcagent.mixins.json",
+		{
+			"config": "mcagent.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~26.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
