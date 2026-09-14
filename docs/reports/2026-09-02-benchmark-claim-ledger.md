@@ -1,5 +1,11 @@
 # Benchmark claim ledger — frozen 2026-09-02, before any arm reports
 
+> **Superseded verdict (added 2026-09-03).** The "licenses the wide claim" verdict below does not
+> stand. The base arm was never shown the tool interface, and its answers ran into the token cap.
+> See [2026-09-03-v20-evaluation-measurement-correction.md](2026-09-03-v20-evaluation-measurement-correction.md)
+> for what the saved evidence does and does not support. The ledger body is preserved unamended,
+> per its own rule.
+
 Written before reading `held_out_base.json`. Purpose: prevent post-hoc claim
 selection once numbers exist. Do not amend after seeing results except to add
 new arms with their own pre-registered criteria.

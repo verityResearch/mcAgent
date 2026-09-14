@@ -4,7 +4,7 @@
 
 Developing and debugging embodied agents with tool-use capabilities presents unique challenges. When an agent fails a task, the root cause could stem from the model's reasoning, gaps in the training corpus, flaws in the evaluation harness, or bugs within the tools themselves. Misdiagnosing the cause can lead to wasted training cycles or misdirected engineering effort. 
 
-This document outlines a domain-independent, repeatable methodology for isolating and identifying these failure modes. Developed during the embodied-agent track for mcAgent, this process led to a Minecraft agent capable of completing 76% of held-out multi-step crafting tasks via genuine live execution.
+This document outlines a domain-independent, repeatable methodology for isolating and identifying these failure modes. Developed during the embodied-agent track for mcAgent, this process took a Minecraft agent from 19/50 (38%) to 38/50 (76%) on held-out multi-step crafting tasks, measured by genuine live execution against a real server. The measurement is in [reports/2026-08-22-embodied-agent-action-chaining.md](reports/2026-08-22-embodied-agent-action-chaining.md).
 
 ## The Diagnostic Loop
 

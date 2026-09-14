@@ -4,59 +4,71 @@
 [![Minecraft Version](https://img.shields.io/badge/Minecraft-26.2-brightgreen.svg)]()
 [![Model Size](https://img.shields.io/badge/Model-1.7B-orange.svg)]()
 
-**mcAgent** is a local, lightweight AI agent designed for Minecraft. Instead of relying on the general knowledge baked into pre-trained models, mcAgent uses a small 1.7B parameter model (Qwen3-1.7B + LoRA) trained specifically to query a verified Minecraft oracle. This allows it to answer Minecraft-related questions accurately based on actual game data.
+**mcAgent** is a small, local AI agent for Minecraft. Instead of relying on facts memorized during pretraining, it uses a 1.7B-parameter model (Qwen3-1.7B + LoRA) trained to query a verified oracle built from the game's own data. When the oracle has no answer, the model is trained to say so rather than invent one.
+
+It is a research artifact: a working test of whether verified data can teach a small model a *skill* (look it up, then act) rather than a pile of facts.
 
 ## Features
 
-- **Offline Oracle**: An SQLite-based oracle built from Minecraft's own generated data reports.
-- **Live Server Integration**: A Fabric mod that can walk a running server's registries, enabling support for modpacks and live game states.
-- **Small Model Architecture**: Uses a fine-tuned Qwen3-1.7B model that is efficient enough to run locally while remaining highly accurate through tool usage.
-- **Verifiable Traces**: Training data is self-verified against the real database, teaching the model to rely on tool calls rather than hallucinating facts.
-- **Mineflayer Bot Integration**: An experimental HTTP-driven Mineflayer bot capable of consuming the oracle to generate and execute multi-step action traces.
+- **Offline oracle**: an SQLite database built from Minecraft's own generated data reports: recipes, tags, loot, enchantments, trades, item properties.
+- **Live server integration**: a Fabric mod that walks a running server's registries, so the oracle can reflect the modpack actually installed.
+- **Small model, tool-first**: a fine-tuned Qwen3-1.7B that answers by calling the oracle instead of recalling.
+- **Self-verifying traces**: every tool observation in the training data is a real return value from the database.
+- **Embodied agent (experimental)**: a Mineflayer bot that consumes the oracle to plan and execute multi-step crafting in a live world.
+
+## Results
+
+Numbers here are only as good as their instruments, and this project has corrected its own once. Read the reports, not just this summary.
+
+- **Action chaining (live execution):** on a 50-task held-out crafting set, recovery-trace training plus a harness fix moved the agent from 19/50 to 38/50, with every outcome checked against real inventory state. See [the action-chaining report](docs/reports/2026-08-22-embodied-agent-action-chaining.md).
+- **Knowledge questions:** the v20 adapter learned the oracle's lookup convention. On questions about items absent from its training traces, the matching lookup was recognized in 104/106 of its responses, and on 27/33 known-item adversarial rephrasings. An earlier claim that the fine-tune beats the base model was **retracted**: the base model was never shown the tool interface, so that comparison measured nothing about skill. A fair paired rerun, with both arms given the same interface, is pending. See [the measurement correction](docs/reports/2026-09-03-v20-evaluation-measurement-correction.md) and [the claim ledger](docs/reports/2026-09-02-benchmark-claim-ledger.md).
 
 ## Components
 
-- **`tool_oracle/`** & **`tool_oracle_cuda/`**: The core oracle implementation (`build_db.py`, `lookup.py`) and training data generators. Includes scripts for self-verifying traces and training the LoRA adapter.
-- **`mc_mod/`**: A Fabric mod for live server interaction. Adds commands like `/mcagent ask` (queries the oracle) and `/mcagent builddb` (extracts live server registry data).
-- **`mc_bot/`**: A Mineflayer bot that connects to the `knowledge_server` and executes verified actions.
-- **`docs/`**: Contains design documents, methodology reports, and evaluation data detailing the training and architecture decisions.
+| Path | What it is |
+| --- | --- |
+| `tool_oracle/` | Oracle builder (`build_db.py`), lookup layer, training-trace generators, evaluation harness. |
+| `tool_oracle_cuda/` | CUDA training, evaluation, and the `knowledge_server.py` HTTP service. |
+| `mc_mod/` | Fabric mod: `/mcagent ask`, `/mcagent builddb`, `/mcagent state`, and a live-registry HTTP endpoint. |
+| `mc_bot/` | Mineflayer bot, action tools, and the live action-evaluation harness (Node.js). |
+| `main.py`, `src/` | The original teacher/judge fact-generation pipeline (any OpenAI-compatible API). |
+| `bedrock_fact_pipeline/` | The same fact pipeline adapted to Bedrock Edition data. |
+| `training/` | Earlier fine-tuning experiments (GPT-2 XL, Mellum, Qwen3 on MLX), kept for reference. |
+| `docs/` | Methodology, design plan, and evaluation reports. Start with [docs/README.md](docs/README.md). |
 
 ## Quickstart
 
-### 1. Installation
+Run commands from the repository root.
 
-Install dependencies. Use `requirements-cuda.txt` if you plan to train or run the model with GPU acceleration. For CPU-only generation and testing, use `requirements.txt`.
+### 1. Install
 
 ```bash
-pip install -r requirements-cuda.txt
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt        # oracle, trace generation, tests (CPU)
+pip install -r requirements-cuda.txt   # training, evaluation, serving (NVIDIA GPU)
 ```
 
-### 2. Build the Oracle
+### 2. Build the oracle
 
-Build the offline SQLite oracle from a pinned Minecraft data report:
+Point it at a data report generated by the Minecraft server's data generator:
 
 ```bash
-python3 tool_oracle/build_db.py <data_report_dir> minecraft.db
+python3 -m tool_oracle.build_db <data_report_dir> minecraft.db
 ```
 
-### 3. Generate Training Data & Train
-
-Generate the training data (which is automatically self-verified against the database) and train the LoRA adapter:
+### 3. Generate training data and train
 
 ```bash
-python3 tool_oracle/build_training_set.py --db minecraft.db --out-dir data-tool
-python3 tool_oracle_cuda/train_lora_cuda.py --train data-tool/train.jsonl --valid data-tool/valid.jsonl --out-dir adapter
+python3 -m tool_oracle.build_training_set --db minecraft.db --out-dir data-tool
+python3 tool_oracle_cuda/train_lora_cuda.py \
+  --train data-tool/train.jsonl --valid data-tool/valid.jsonl --out-dir adapter
 ```
 
 ### 4. Evaluate
 
-Evaluate the model against held-out data to verify tool usage and accuracy.
-
 ```bash
-# Download the base model
 hf download Qwen/Qwen3-1.7B --revision 70d244cc86ccca08cf5af4e1e306ecf908b1ad5e
 
-# Run the evaluation
 python3 tool_oracle_cuda/eval_tool_skill_cuda.py \
   --model Qwen/Qwen3-1.7B \
   --revision 70d244cc86ccca08cf5af4e1e306ecf908b1ad5e \
@@ -71,30 +83,38 @@ python3 tool_oracle_cuda/eval_tool_skill_cuda.py \
 
 ### 5. Serve
 
-Start the knowledge server and test it with a query:
-
 ```bash
 python3 tool_oracle_cuda/knowledge_server.py --adapter adapter --db minecraft.db --port 8420
 
 # In another terminal:
-curl -X POST localhost:8420/ask -d '{"question": "What do I need to craft a torch?"}'
+curl -X POST http://127.0.0.1:8420/ask \
+  -H 'Content-Type: application/json' \
+  -d '{"question": "What do I need to craft a torch?"}'
 ```
 
-*Note: The Fabric mod (`mc_mod/`) builds separately via `./gradlew build` (JDK 25) and talks to this same knowledge server. See `mc_mod/README.md` for details.*
+The Fabric mod builds separately (`cd mc_mod && ./gradlew build`, JDK 25) and talks to this same server. See [mc_mod/README.md](mc_mod/README.md).
 
-## Project Status & Limitations
+### Tests
 
-mcAgent is a research artifact built to explore tool-use in small models for embodied agents. It is not currently maintained as a production-ready Minecraft mod.
+```bash
+python3 -m pytest
+```
 
-- **Minecraft Version**: Pinned to Minecraft 26.2.
-- **Known Issues**:
-  - The Mineflayer bot cannot currently connect to 26.2 servers due to an upstream protocol gap. Server-side features (`builddb`, `ask`, and the HTTP oracle endpoint) are unaffected.
-  - Evaluation scores should be interpreted alongside manual verification, as early evaluation schema flaws missed some recipe structure bugs.
+One test needs `torch` and is skipped without it.
 
-## Authorship & Acknowledgments
+## Status and limitations
 
-This project was built as a collaborative effort between a human operator and AI (Anthropic's Claude). The operator guided the conception, direction, and verification, while the implementation was substantially machine-authored. Architecture and evaluation design went through review by cairn, a persistent Claude research collaborator; code comments that say "per the review" refer to that process.
+mcAgent is a research artifact, not a maintained production mod.
+
+- **Minecraft version:** pinned to 26.2.
+- **Mineflayer bot:** cannot currently connect to 26.2 servers because of an upstream protocol gap. The server-side features (`builddb`, `ask`, the HTTP oracle endpoint) are unaffected.
+- **Evaluation:** read scores alongside the reports. Early evaluation schemas missed some recipe-structure bugs, and one base-model comparison has been retracted.
+- **Knowledge server address:** the mod expects it at `127.0.0.1:8420`, and this is not yet configurable.
+
+## Authorship
+
+Built by Tony Houston working with Anthropic's Claude. Tony set the direction, the questions, and the verification bar; much of the implementation was machine-authored. Architecture and evaluation design went through review by cairn, a persistent Claude research collaborator. Code comments that say "per the review" refer to that process.
 
 ## License
 
-This project is licensed under the Apache 2.0 License. See the [LICENSE](LICENSE) file for details.
+Apache 2.0. See [LICENSE](LICENSE).
