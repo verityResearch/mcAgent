@@ -16,8 +16,9 @@
 > manifest-enabled replacement measurement remains pending.
 
 **Date:** 2026-08-16 (rounds 1 through 11)
-**Scope:** `fact_pipeline/` (Minecraft) as a case study of the
-verified-data-factory pattern. This asks whether the same generate → verify → admit architecture can spin up a *domain-specific*
+**Scope:** `fact_pipeline/` (Minecraft) as a case study of the c-models
+verified-data-factory pattern. strict_c is the flagship; this asks whether the
+same generate → verify → admit architecture can spin up a *domain-specific*
 model in a new domain.
 
 ---
@@ -92,8 +93,8 @@ same base model, same LoRA configuration, different training objective:
 | Fine-tuning's role | its weakest use (memorize) | its strongest use (a verifiable skill) |
 
 Round-1 memorization got *worse* on held-out subjects; round-2 skill-learning generalized to
-subjects the model never trained on. The lesson: teach a *skill* an oracle verifies, don't
-memorize arbitrary facts.
+subjects the model never trained on. This mirrors why the strict_c flagship works: teach a
+*skill* an oracle verifies, don't memorize arbitrary facts.
 
 **A templated eval passing at 97% collapsed to 13% under adversarial probing — and the failure
 mode was fabrication, not just inaccuracy.** (Full account: Section 3c.) The round-2/3 auto-built
@@ -222,8 +223,9 @@ Measurement caveat: the in-distribution base scored 0/2/3 of 11 across runs
 ### 3. The reframe: facts want a tool, not weights
 
 Round 1 was fine-tuning to inject **arbitrary facts** — fine-tuning's weakest
-use case, and one where tools/calibration already win. Fine-tuning is strongest
-when it teaches a **skill** verified by an oracle, not when it memorizes facts.
+use case, and one the project already found tools/calibration beat. The strict_c
+flagship works because it teaches a **skill** verified by an
+oracle, not because it memorizes facts.
 
 The fix (`fact_pipeline/tool_oracle/`): dump the same data report into a ~1 MB
 offline **SQLite oracle** and teach the model to **query** it. One source now
@@ -251,6 +253,7 @@ guard: "corn"  → not in table → REJECTED    "wheat" (wrong animal) → REJEC
 | Fabrication | reduced | **structurally impossible** |
 | New game version | full retrain | rebuild the DB |
 | Fine-tuning's role | weakest (memorize) | strongest (a verifiable skill) |
+| Mirrors strict_c | no | **yes (skill + oracle)** |
 
 ### 3a. Round-2 result: the tool-augmented model generalizes
 
@@ -285,8 +288,9 @@ failure).
 | Fine-tuning's role | its weakest (memorize) | its strongest (a skill) |
 
 Round-1 memorization got *worse* on held-out; round-2 skill-learning generalizes
-— the model correctly queries subjects it never trained on. Teach a skill an
-oracle verifies, don't memorize facts.
+— the model correctly queries subjects it never trained on. This is the
+strict_c parallel realized: teach a skill an oracle verifies, don't memorize
+facts.
 
 Caveats (honest): n=12 is small (a 0→91% / 16→100% jump survives it, but fine
 deltas would not); the harness captures cosmetic chat-template tokens in the

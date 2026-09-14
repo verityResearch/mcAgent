@@ -7,7 +7,11 @@
 	"authors": [
 		"Tony Houston"
 	],
+	"contributors": [
+		"cairn (Claude)"
+	],
 	"contact": {
+		"homepage": "https://verityresearch.dev",
 		"sources": "https://github.com/verityResearch/mcAgent"
 	},
 	"license": "Apache-2.0",

@@ -44,7 +44,7 @@ facts — it needs to learn the *skill* of routing to a verified oracle. Applied
 The last two rows are the ones no incumbent can match. A pretrained model has never seen the items
 from the modpack a user installed last week; an oracle built from that user's running game has.
 
-**And it extends the verified-data thesis one step further.** The case study already shows *verified data
+**And it extends the c-models thesis one step further.** The corpus already shows *verified data
 teaches skills, not facts*. Embodiment adds: **verified data can teach actions, because the game is
 the oracle.** Every action returns real world-state, so an action trace is self-verifying in exactly
 the way a query trace is. That is the round-12+ research direction and it falls out of the product.
