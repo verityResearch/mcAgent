@@ -8,6 +8,8 @@
 
 It is a research artifact: a working test of whether verified data can teach a small model a *skill* (look it up, then act) rather than a pile of facts.
 
+mcAgent is an early, task-directed checkpoint (August 2026) of a larger private research program on verified synthetic data. That program has been in continuous development since this checkpoint was taken.
+
 ## Features
 
 - **Offline oracle**: an SQLite database built from Minecraft's own generated data reports: recipes, tags, loot, enchantments, trades, item properties.
