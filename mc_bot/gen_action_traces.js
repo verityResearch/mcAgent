@@ -25,7 +25,7 @@
 //   Gate 2 (outcome): for DAG-sourced craft-chain tasks, did the task
 //     ACTUALLY complete -- checked against real inventory state (before/after
 //     item-count diff), not inferred from the last step's own return value.
-//     Cairn's point: a model could call craft() fifteen times with wrong
+//     The review's point: a model could call craft() fifteen times with wrong
 //     ingredients, get fifteen REAL (gate-1-passing) failures, stumble into
 //     success, and every step would be "verified" under authenticity alone --
 //     training on that teaches flailing. The state tools from stage 3
