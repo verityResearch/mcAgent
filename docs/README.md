@@ -17,7 +17,6 @@ Research logs, design documents, and methodology behind **mcAgent**.
 - [**2026-09-02-benchmark-claim-ledger.md**](reports/2026-09-02-benchmark-claim-ledger.md): a pre-registered base-vs-adapter comparison. **Its verdict is superseded by the 09-03 correction.**
 - [**2026-09-02-promotion-metrics-candidates.md**](reports/2026-09-02-promotion-metrics-candidates.md): candidate metrics for promoting checkpoints.
 - [**2026-09-03-v20-evaluation-measurement-correction.md**](reports/2026-09-03-v20-evaluation-measurement-correction.md): what the saved evaluation evidence actually supports, what was retracted, and the replacement evaluation gate.
-- **Beyond Tool Access \*refuted\*.pdf**: an earlier write-up whose central claim was refuted by the correction above. Kept for the record.
 
 ---
 
