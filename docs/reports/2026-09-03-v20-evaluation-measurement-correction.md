@@ -1,6 +1,7 @@
 # v20 Evaluation Measurement Correction
 
-> Status: historical evidence audited; manifest-enabled paired rerun pending
+> Status: historical evidence audited; manifest-enabled paired rerun **landed 2026-09-14** (see
+> [Paired rerun](#paired-rerun-2026-09-14) at the end of this note)
 
 This note corrects the September 2026 four-arm comparison between
 `Qwen/Qwen3-1.7B` and the v20 LoRA adapter. It preserves what the saved packet
@@ -114,3 +115,27 @@ Before reporting a replacement answer rate, merge that instrument, rerun
 matched base and v20 arms, and calibrate its mechanical answer matcher against
 a blinded human-adjudicated sample. Unit tests and corpus-format replay verify
 the instrument contract; they do not validate semantic correctness.
+
+## Paired rerun (2026-09-14)
+
+The rerun this note called for has run. Both arms were given the **same hash-bound tool
+manifest**, and a call counted only if it met a **strict tool-call contract** — not the legacy
+parser's "a `lookup(...)` appeared somewhere in the text".
+
+| Arm | Eval set | Correct tool calls |
+| --- | --- | ---: |
+| base | held-out (n=106) | 0/106 (0%) |
+| v20 | held-out (n=106) | 23/106 (22%) |
+| base | adversarial (n=43) | 0/43 (0%) |
+| v20 | adversarial (n=43) | 2/43 (5%) |
+
+On the held-out set every one of the adapter's 23 correct calls is a question the base failed,
+and none went the other way: 23 vs 0 discordant pairs, exact McNemar, two-sided p ≈ 2×10⁻⁷. The
+adversarial rephrasings give 2 vs 0 discordant pairs (p = 0.5), which is not distinguishable from
+chance.
+
+So the adapter learned something real about calling the oracle, and it is weak in absolute terms.
+The drop from the historical 104/106 to 23/106 cannot be pinned on one cause: scoring became
+strict, **and** the evaluator now supplies a manifest the adapter never saw during training. The
+retraction of the earlier headline stands; this is the number to cite. Summary in the
+[README](../../README.md#results).
